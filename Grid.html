@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .grid-container{
+        border: 2px solid red;
+        height: 100vh;
+        background-color: antiquewhite;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 3fr 1fr;
+    }
+    .box{
+        border: 1px solid black;
+    }
+
+    .one{
+        background-color: red;
+        grid-column-start: 1;
+        grid-column-end: 6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: aquamarine;
+        font-size: 20px;
+        font-weight: 800;
+    }
+    .two{
+        background-color: blue;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: rgb(101, 101, 118);
+        font-size: 20px;
+        font-weight: 800;
+    }
+    .three{
+        background-color: lightcoral;
+        grid-column-start: 3;
+        grid-column-end: 6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: rgb(6, 238, 161);
+        font-size: 20px;
+        font-weight: 800;
+
+    }
+    .four{
+        background-color: aqua;
+        grid-column-start: 1;
+        grid-column-end: 6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: rgb(3, 35, 24);
+        font-size: 20px;
+        font-weight: 800;
+    }
+</style>
+
+<body>
+    <div class="grid-container" >
+        <div class="box one">Header</div>
+        <div class="box two">SideBar</div>
+        <div class="box three">Main-Content</div>
+        <div class="box four">Footer</div>
+    </div>
+</body>
+</html>

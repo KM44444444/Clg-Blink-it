@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+    *{
+        margin: 0%;
+        padding: 0%;
+        box-sizing: border-box;
+    }
+    .grid-container {
+        border: 2px solid red;
+        height: 100vh;
+        background-color: lightcyan;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 3fr 1fr;
+    }
+    .one {
+        background-color: lightgreen;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .two {
+        background-color: lightblue;
+        grid-column-start: 3;
+        grid-column-end: 6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .four {
+        background-color: lightcoral;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .five {
+        background-color: lightgray;
+        grid-column-start: 3;
+        grid-column-end: 6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    </style>    
+
+    
+</body>
+<div class="grid-container">
+    <div class="box one"></div>
+    <div class="box two"></div>
+    <div class="box three"></div>
+    <div class="box four"></div>
+    <div class="box five"></div>
+</html>\

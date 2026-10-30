@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blinkit - 10 Minute Delivery</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background-color: #f4f6f8;
+      color: #1f1f1f;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 30px;
+      border-bottom: 1px solid #e0e0e0;
+      z-index: 1000;
+      gap: 20px;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-yellow {
+      background: #f8cb46;
+      color: #000;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .logo-green {
+      color: #0c831f;
+      margin-left: 2px;
+    }
+
+    .location {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .location .time {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .location .place {
+      font-size: 11px;
+      color: #666;
+    }
+
+    .search-box {
+      flex: 1;
+      max-width: 500px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #f8f9fa;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      background: #fff;
+      border-color: #0c831f;
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .login-btn {
+      background: transparent;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px 12px;
+    }
+
+    .cart-btn {
+      background: #0c831f;
+      color: #ffffff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cart-btn:hover {
+      background: #096818;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    /* Banner */
+    .hero-banner {
+      background: linear-gradient(90deg, #0c831f, #2bb642);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 25px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .hero-banner h1 {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .hero-banner p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .hero-banner .banner-icon {
+      font-size: 55px;
+    }
+
+    /* Categories */
+    .category-section {
+      background: #fff;
+      padding: 15px 20px;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+      margin-bottom: 25px;
+    }
+
+    .category-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .category-list {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+    }
+
+    .cat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      background: #f8f9fa;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      cursor: pointer;
+      min-width: 85px;
+      transition: 0.2s;
+    }
+
+    .cat-item:hover, .cat-item.active {
+      background: #fff8e7;
+      border-color: #f8cb46;
+    }
+
+    .cat-item span {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .cat-item p {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Products Grid */
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .section-head h2 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+
+    .card-time {
+      font-size: 10px;
+      font-weight: 700;
+      background: #f1f2f4;
+      padding: 2px 6px;
+      border-radius: 4px;
+      width: fit-content;
+      margin-bottom: 8px;
+    }
+
+    .card-img {
+      height: 90px;
+      background: #f9f9f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 45px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      line-height: 1.3;
+      height: 34px;
+      overflow: hidden;
+    }
+
+    .card .unit {
+      font-size: 11px;
+      color: #777;
+      margin-bottom: 10px;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .price-box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .price {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .mrp {
+      font-size: 11px;
+      color: #888;
+      text-decoration: line-through;
+    }
+
+    .add-btn {
+      background: #fff;
+      color: #0c831f;
+      border: 1px solid #0c831f;
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .add-btn:hover {
+      background: #0c831f;
+      color: #fff;
+    }
+
+    .counter-btn {
+      display: flex;
+      align-items: center;
+      background: #0c831f;
+      color: #fff;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .counter-btn button {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      width: 24px;
+      height: 26px;
+      cursor: pointer;
+    }
+
+    .counter-btn span {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 0 4px;
+    }
+
+    /* Cart Sidebar */
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 2000;
+    }
+
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -380px;
+      width: 360px;
+      height: 100%;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.3s ease;
+      z-index: 2001;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    }
+
+    .cart-sidebar.open {
+      right: 0;
+    }
+
+    .cart-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-header h3 {
+      font-size: 16px;
+    }
+
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px 20px;
+    }
+
+    .cart-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .cart-row-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cart-row-icon {
+      font-size: 24px;
+    }
+
+    .cart-row-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .cart-row-unit {
+      font-size: 11px;
+      color: #777;
+    }
+
+    .cart-row-price {
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .cart-summary {
+      background: #fafafa;
+      padding: 15px 20px;
+      border-top: 1px solid #eee;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: #555;
+    }
+
+    .summary-line.total {
+      font-size: 15px;
+      font-weight: 700;
+      color: #000;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #ddd;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: #0c831f;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .checkout-btn:hover {
+      background: #096818;
+    }
+
+    .empty-cart-msg {
+      text-align: center;
+      margin-top: 50px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    /* Order Modal */
+    .order-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      z-index: 2100;
+      text-align: center;
+      width: 90%;
+      max-width: 340px;
+    }
+
+    .order-modal h2 {
+      font-size: 18px;
+      margin: 10px 0;
+      color: #0c831f;
+    }
+
+    .order-modal p {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .order-modal button {
+      background: #0c831f;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px 16px;
+      }
+      .brand-section {
+        justify-content: space-between;
+      }
+      .search-box {
+        max-width: 100%;
+      }
+      .cart-sidebar {
+        width: 100%;
+        right: -100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="brand-section">
+      <div class="logo" onclick="resetPage()">
+        <span class="logo-yellow">blink</span><span class="logo-green">it</span>
+      </div>
+      <div class="location" onclick="changeAddress()">
+        <span class="time">⚡ Delivery in 10 mins</span>
+        <span class="place" id="addressText">Sector 62, Noida ▾</span>
+      </div>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search for milk, chips, bread, fruits..." oninput="filterProducts()">
+    </div>
+
+    <div class="nav-buttons">
+      <button class="login-btn" id="loginBtn" onclick="toggleLogin()">Login</button>
+      <button class="cart-btn" onclick="toggleCart()">
+        <span>🛒</span>
+        <span id="cartBtnText">0 items | ₹0</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="hero-banner">
+      <div>
+        <h1>Paani Puri & Groceries in 10 mins!</h1>
+        <p>Order fresh daily vegetables, milk, bread & snacks at best prices.</p>
+      </div>
+      <div class="banner-icon">🛵</div>
+    </div>
+
+    <div class="category-section">
+      <div class="category-title">Shop by Category</div>
+      <div class="category-list" id="categoryList"></div>
+    </div>
+
+    <div class="section-head">
+      <h2 id="sectionTitle">All Products</h2>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>My Cart</h3>
+      <button class="close-cart" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-summary" id="cartSummary" style="display: none;">
+      <div class="summary-line">
+        <span>Item Total</span>
+        <span id="subtotalText">₹0</span>
+      </div>
+      <div class="summary-line">
+        <span>Delivery Charge</span>
+        <span id="deliveryText">₹15</span>
+      </div>
+      <div class="summary-line">
+        <span>Handling Fee</span>
+        <span>₹4</span>
+      </div>
+      <div class="summary-line total">
+        <span>Grand Total</span>
+        <span id="grandTotalText">₹0</span>
+      </div>
+      <button class="checkout-btn" onclick="placeOrder()">Place Order</button>
+    </div>
+  </div>
+
+  <div class="order-modal" id="orderModal">
+    <div style="font-size: 40px;">🎉</div>
+    <h2>Order Placed!</h2>
+    <p>Delivery partner <strong>Ramesh 🛵</strong> is on the way. Arriving in 10 minutes!</p>
+    <button onclick="closeOrderModal()">Done</button>
+  </div>
+
+  <script>
+    const categories = [
+      { id: 'all', name: 'All', icon: '🛒' },
+      { id: 'dairy', name: 'Dairy & Bread', icon: '🥛' },
+      { id: 'vegetables', name: 'Vegetables', icon: '🥦' },
+      { id: 'fruits', name: 'Fruits', icon: '🍎' },
+      { id: 'snacks', name: 'Snacks', icon: '🍿' },
+      { id: 'drinks', name: 'Cold Drinks', icon: '🥤' },
+      { id: 'instant', name: 'Instant Food', icon: '🍜' }
+    ];
+
+    const products = [
+      { id: 1, name: 'Amul Taaza Toned Milk', category: 'dairy', unit: '500 ml', price: 27, mrp: 28, icon: '🥛', time: '8 mins' },
+      { id: 2, name: 'Britannia Brown Bread', category: 'dairy', unit: '400 g', price: 45, mrp: 50, icon: '🍞', time: '9 mins' },
+      { id: 3, name: 'Farm Fresh White Eggs', category: 'dairy', unit: '6 pcs', price: 58, mrp: 65, icon: '🥚', time: '8 mins' },
+      { id: 4, name: 'Amul Salted Butter', category: 'dairy', unit: '100 g', price: 56, mrp: 60, icon: '🧈', time: '8 mins' },
+      { id: 5, name: 'Fresh Red Tomatoes', category: 'vegetables', unit: '1 kg', price: 35, mrp: 45, icon: '🍅', time: '10 mins' },
+      { id: 6, name: 'Fresh Farm Potatoes', category: 'vegetables', unit: '1 kg', price: 25, mrp: 30, icon: '🥔', time: '10 mins' },
+      { id: 7, name: 'Fresh Hybrid Onions', category: 'vegetables', unit: '1 kg', price: 38, mrp: 45, icon: '🧅', time: '10 mins' },
+      { id: 8, name: 'Fresh Shimla Apples', category: 'fruits', unit: '500 g', price: 110, mrp: 130, icon: '🍎', time: '10 mins' },
+      { id: 9, name: 'Fresh Bananas', category: 'fruits', unit: '1 kg', price: 48, mrp: 60, icon: '🍌', time: '8 mins' },
+      { id: 10, name: "Lay's Magic Masala", category: 'snacks', unit: '50 g', price: 20, mrp: 20, icon: '🥔', time: '8 mins' },
+      { id: 11, name: 'Doritos Cheese Nachos', category: 'snacks', unit: '82 g', price: 50, mrp: 50, icon: '🧀', time: '8 mins' },
+      { id: 12, name: 'Coca-Cola Can', category: 'drinks', unit: '300 ml', price: 40, mrp: 40, icon: '🥤', time: '8 mins' },
+      { id: 13, name: 'Sprite Cold Drink', category: 'drinks', unit: '750 ml', price: 45, mrp: 45, icon: '🍋', time: '8 mins' },
+      { id: 14, name: 'Maggi Masala Noodles', category: 'instant', unit: '4 pack', price: 56, mrp: 60, icon: '🍜', time: '8 mins' }
+    ];
+
+    let cart = {};
+    let selectedCategory = 'all';
+
+    function init() {
+      renderCategories();
+      renderProducts();
+      updateCartUI();
+    }
+
+    function renderCategories() {
+      const container = document.getElementById('categoryList');
+      container.innerHTML = categories.map(cat => `
+        <div class="cat-item ${selectedCategory === cat.id ? 'active' : ''}" onclick="selectCategory('${cat.id}')">
+          <span>${cat.icon}</span>
+          <p>${cat.name}</p>
+        </div>
+      `).join('');
+    }
+
+    function selectCategory(catId) {
+      selectedCategory = catId;
+      document.getElementById('searchInput').value = '';
+      const catObj = categories.find(c => c.id === catId);
+      document.getElementById('sectionTitle').innerText = catObj ? catObj.name : 'Products';
+      renderCategories();
+      renderProducts();
+    }
+
+    function filterProducts() {
+      const term = document.getElementById('searchInput').value.toLowerCase().trim();
+      renderProducts(term);
+    }
+
+    function renderProducts(searchTerm = '') {
+      const grid = document.getElementById('productGrid');
+      let filtered = products;
+
+      if (searchTerm) {
+        filtered = products.filter(p => p.name.toLowerCase().includes(searchTerm));
+        document.getElementById('sectionTitle').innerText = `Search results for "${searchTerm}"`;
+      } else if (selectedCategory !== 'all') {
+        filtered = products.filter(p => p.category === selectedCategory);
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #888;">No products found.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(p => {
+        const qty = cart[p.id] || 0;
+        const btnHtml = qty === 0 
+          ? `<button class="add-btn" onclick="addToCart(${p.id})">ADD</button>`
+          : `<div class="counter-btn">
+              <button onclick="updateQty(${p.id}, -1)">−</button>
+              <span>${qty}</span>
+              <button onclick="updateQty(${p.id}, 1)">+</button>
+            </div>`;
+
+        return `
+          <div class="card">
+            <div class="card-time">⏱ ${p.time}</div>
+            <div class="card-img">${p.icon}</div>
+            <h3>${p.name}</h3>
+            <div class="unit">${p.unit}</div>
+            <div class="card-footer">
+              <div class="price-box">
+                <span class="price">₹${p.price}</span>
+                <span class="mrp">₹${p.mrp}</span>
+              </div>
+              <div>${btnHtml}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function addToCart(productId) {
+      cart[productId] = 1;
+      updateCartUI();
+      renderProducts(document.getElementById('searchInput').value.toLowerCase().trim());
+    }
+
+    function updateQty(productId, change) {
+      if (!cart[productId]) return;
+      cart[productId] += change;
+      if (cart[productId] <= 0) {
+        delete cart[productId];
+      }
+      updateCartUI();
+      renderProducts(document.getElementById('searchInput').value.toLowerCase().trim());
+    }
+
+    function updateCartUI() {
+      let totalCount = 0;
+      let subtotal = 0;
+
+      for (let id in cart) {
+        const item = products.find(p => p.id == id);
+        if (item) {
+          totalCount += cart[id];
+          subtotal += item.price * cart[id];
+        }
+      }
+
+      document.getElementById('cartBtnText').innerText = `${totalCount} items | ₹${subtotal}`;
+
+      const cartItemsDiv = document.getElementById('cartItems');
+      const cartSummaryDiv = document.getElementById('cartSummary');
+
+      if (totalCount === 0) {
+        cartItemsDiv.innerHTML = `<div class="empty-cart-msg">Your cart is empty.<br>Add some fresh groceries!</div>`;
+        cartSummaryDiv.style.display = 'none';
+        return;
+      }
+
+      cartSummaryDiv.style.display = 'block';
+      let itemsHtml = '';
+
+      for (let id in cart) {
+        const item = products.find(p => p.id == id);
+        if (!item) continue;
+        const qty = cart[id];
+        itemsHtml += `
+          <div class="cart-row">
+            <div class="cart-row-info">
+              <div class="cart-row-icon">${item.icon}</div>
+              <div>
+                <div class="cart-row-title">${item.name}</div>
+                <div class="cart-row-unit">${item.unit}</div>
+                <div class="cart-row-price">₹${item.price * qty}</div>
+              </div>
+            </div>
+            <div class="counter-btn">
+              <button onclick="updateQty(${item.id}, -1)">−</button>
+              <span>${qty}</span>
+              <button onclick="updateQty(${item.id}, 1)">+</button>
+            </div>
+          </div>
+        `;
+      }
+
+      cartItemsDiv.innerHTML = itemsHtml;
+
+      const deliveryFee = subtotal >= 199 ? 0 : 15;
+      const handlingFee = 4;
+      const grandTotal = subtotal + deliveryFee + handlingFee;
+
+      document.getElementById('subtotalText').innerText = `₹${subtotal}`;
+      document.getElementById('deliveryText').innerText = deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`;
+      document.getElementById('grandTotalText').innerText = `₹${grandTotal}`;
+    }
+
+    function toggleCart() {
+      const sidebar = document.getElementById('cartSidebar');
+      const overlay = document.getElementById('cartOverlay');
+      sidebar.classList.toggle('open');
+      overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
+    }
+
+    function placeOrder() {
+      toggleCart();
+      document.getElementById('orderModal').style.display = 'block';
+      cart = {};
+      updateCartUI();
+      renderProducts();
+    }
+
+    function closeOrderModal() {
+      document.getElementById('orderModal').style.display = 'none';
+    }
+
+    function changeAddress() {
+      const newAddress = prompt('Enter your delivery location:', 'Sector 62, Noida');
+      if (newAddress && newAddress.trim() !== '') {
+        document.getElementById('addressText').innerText = newAddress.trim() + ' ▾';
+      }
+    }
+
+    function toggleLogin() {
+      const btn = document.getElementById('loginBtn');
+      if (btn.innerText === 'Login') {
+        const name = prompt('Enter your name to login:', 'Kshitiz');
+        if (name && name.trim()) {
+          btn.innerText = name.trim();
+        }
+      } else {
+        if (confirm('Do you want to logout?')) {
+          btn.innerText = 'Login';
+        }
+      }
+    }
+
+    function resetPage() {
+      selectedCategory = 'all';
+      document.getElementById('searchInput').value = '';
+      selectCategory('all');
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
