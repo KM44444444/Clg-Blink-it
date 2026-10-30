@@ -1,9 +1,9 @@
-# Blinkit Frontend Clone
+# FreshMart - 10-Minute Grocery Delivery
 
-A responsive, 100% client-side Blinkit web app clone built with HTML, CSS, and Vanilla JavaScript.
+A responsive, 100% client-side grocery delivery web app built with HTML, CSS, and Vanilla JavaScript.
 
 ## Features
-- **10-Minute Delivery Experience**: Blinkit-style branding, real-time address switcher.
+- **10-Minute Delivery Experience**: FreshMart branding, real-time address switcher.
 - **Product Catalog**: Dairy, vegetables, fruits, snacks, cold drinks, and instant food with delivery badges & discounts.
 - **Interactive Cart**: Live `ADD` button converting to `[-] [qty] [+]` controls.
 - **Sliding Cart Drawer**: Bill breakdown, delivery charge rules, and instant order placement modal.
